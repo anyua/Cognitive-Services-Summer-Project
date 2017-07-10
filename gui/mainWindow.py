@@ -28,6 +28,9 @@ class Ui_MainWindow(object):
         self.getAudio = QtWidgets.QPushButton(self.centralwidget)
         self.getAudio.setGeometry(QtCore.QRect(50, 310, 75, 23))
         self.getAudio.setObjectName("getAudio")
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(30, 360, 75, 23))
+        self.pushButton.setObjectName("pushButton")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 863, 23))
@@ -50,6 +53,7 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "TextLabel"))
         self.getEmotion.setText(_translate("MainWindow", "开始检查表情"))
         self.getAudio.setText(_translate("MainWindow", "开始录音"))
+        self.pushButton.setText(_translate("MainWindow", "文本分析"))
         self.menu.setTitle(_translate("MainWindow", "啦啦啦"))
 
 import icon_rc

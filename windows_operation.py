@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from gui.mainWindow import Ui_MainWindow
 import icon_rc
-from service import Speech2TextService, EmotionAnalyzeService
+from service import Speech2TextService, EmotionAnalyzeService, LanguageUnderstandingService
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -28,11 +28,19 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 绑定按钮
         self.getEmotion.clicked.connect(self.get_emotion)
         self.getAudio.clicked.connect(self.get_audio)
+        self.pushButton.clicked.connect(self.get_luis)
+
+    def get_luis(self, text="请把帮忙把灯关掉"):
+        print(text)
+        lalala = LanguageUnderstandingService(text)
+        lalala.trigger.connect(self.printout_data)
+        lalala.start()
+        self.thread_list.append(lalala)
 
     def get_audio(self):
         self.label.movie().setPaused(False)
         speech = Speech2TextService()
-        speech.trigger.connect(self.printout_data)
+        speech.trigger.connect(self.get_luis)
         speech.stop_the_cat.connect(self.label.movie().setPaused)
         speech.start()
         self.thread_list.append(speech)

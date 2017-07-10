@@ -100,7 +100,7 @@ class luisAPI(object):
         self.text = text
         self.operations = {}
 
-    def process_res(self,res):
+    def process_res(self, res):
         print('LUIS Resopnse:')
         print('Query: ' + res.get_query())
         print('Top Scoring Intent: ' + res.get_top_intent().get_name())
@@ -124,21 +124,18 @@ class luisAPI(object):
         print(self.operations)
         return self.operations
 
-
     def get_luis_response(self):
         try:
             client = LUISClient(self.appID, self.app_key, True)
             res = client.predict(self.text)
             while res.get_dialog() is not None and not res.get_dialog().is_finished():
-                self.text = input('%s\n'%res.get_dialog().get_prompt())
-                res = client.reply(self.text,res)
+                self.text = input('%s\n' % res.get_dialog().get_prompt())
+                res = client.reply(self.text, res)
             self.process_res(res)
         except Exception as exc:
             print(exc)
 
 if __name__ == "__main__":
-    #lalal = SpeechAPI()
-    #print(lalal.get_speech_service('temp/whatstheweatherlike.wav'))
     lalala = luisAPI('lalalal')
     lalala.get_luis_response()
     print(lalala.operations)

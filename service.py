@@ -43,7 +43,7 @@ class EmotionAnalyzeService(QtCore.QThread):
 class LanguageUnderstandingService(QtCore.QThread):
     trigger = QtCore.pyqtSignal(dict)
 
-    def __init__(self,text):
+    def __init__(self, text):
         super(LanguageUnderstandingService, self).__init__()
         self.text = text
         self.api = luisAPI(text)
