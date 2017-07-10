@@ -23,7 +23,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.emotion_count = 10
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.get_emotion_once)
-        self.timer.start(3000)
+        self.timer.start(1000)
         # self.get_emotion_once()
 
     def get_emotion_once(self):

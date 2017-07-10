@@ -5,11 +5,11 @@ from cognitive_services import EmotionAPI, SpeechAPI
 
 class Speech2TextService(QtCore.QThread):
     trigger = QtCore.pyqtSignal(str)
-    my_microphone = Microphone()
-    api = SpeechAPI()
 
     def __init__(self):
         super(Speech2TextService, self).__init__()
+        self.my_microphone = Microphone()
+        self.api = SpeechAPI()
 
     def run(self):
         self.my_microphone.read_audio()
@@ -24,11 +24,11 @@ class Speech2TextService(QtCore.QThread):
 
 class EmotionAnalyzeService(QtCore.QThread):
     trigger = QtCore.pyqtSignal(dict)
-    my_camera = Camera()
-    api = EmotionAPI()
 
     def __init__(self):
         super(EmotionAnalyzeService, self).__init__()
+        self.my_camera = Camera()
+        self.api = EmotionAPI()
 
     def run(self):
         data = self.api.get_emotions()

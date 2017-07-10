@@ -4,18 +4,26 @@ import numpy
 import wave
 import numpy as np
 from pyaudio import PyAudio, paInt16
+import threading
+
+CAMERA_NUM = 0
 
 
 class Camera(object):
+    mutex = threading.Lock()
+
     def __init__(self):
-        file_name = r"C:\Users\anyua\Desktop\Slam视频\演示文稿3.mp4"
-        # self.device = cv2.VideoCapture(0)
-        self.device = cv2.VideoCapture(r"C:\Users\anyua\Desktop\Slam视频\演示文稿3.mp4")
+        self.device = None
         self.frame = None
         self.ret = None
 
     def get_frame(self):
+        self.mutex.acquire()
+        self.device = cv2.VideoCapture(r"C:\Users\anyua\Desktop\Slam视频\演示文稿3.mp4")
+        # self.device = cv2.VideoCapture(CAMERA_NUM)
         self.ret, self.frame = self.device.read()
+        self.device.release()
+        self.mutex.release()
         return self.frame
 
     def show_frame(self):
@@ -30,7 +38,6 @@ class Camera(object):
         encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
         result, img_encode = cv2.imencode('.jpg', self.frame, encode_param)
         data = numpy.array(img_encode).tobytes()
-        self.device.release()
         return data
 
     def open_img(self):
