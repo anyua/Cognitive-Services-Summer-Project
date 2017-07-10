@@ -9,7 +9,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         super(MainWindow, self).__init__()
         self.setupUi(self)
         self.label1.setText(chr(0xf282))
-        QtGui.QFontDatabase.addApplicationFont("gui/resources/fontawesome-webfont.ttf")
+        QtGui.QFontDatabase.addApplicationFont("gui/resources/fontawesome-webfont.ttf") # 啦啦啦啦
         self.label1.setFont(QtGui.QFont('FontAwesome', 34))
         png = QtGui.QMovie(':img/speaking')
         # 在l1里面，调用setPixmap命令，建立一个图像存放框，并将之前的图像png存放在这个框框里。
