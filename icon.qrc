@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="img">
+    <file alias="speaking">gui/resources/image/image.gif</file>
+  </qresource>
+</RCC>
