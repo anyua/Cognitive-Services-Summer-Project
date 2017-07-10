@@ -114,6 +114,8 @@ class luisAPI(object):
             else:
                 print('Dialog Parameter Name: ' + res.get_dialog().get_parameter_name())
             print('Dialog Status: ' + res.get_dialog().get_status())
+        else:
+            return None
         print('Entities:')
         for entity in res.get_entities():
             print('"%s":' % entity.get_name())
@@ -133,7 +135,7 @@ class luisAPI(object):
 if __name__ == "__main__":
     #lalal = SpeechAPI()
     #print(lalal.get_speech_service('temp/whatstheweatherlike.wav'))
-    lalala = luisAPI('开灯')
+    lalala = luisAPI('啦啦啦啦')
     lalala.get_luis_response()
 
 
