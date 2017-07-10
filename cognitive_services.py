@@ -6,6 +6,7 @@ import urllib.error
 from device import Camera
 import requests
 import time
+from luis_sdk import LUISClient
 
 
 class EmotionAPI(object):
@@ -93,8 +94,47 @@ class SpeechAPI(object):
         return json.loads(r.text)
 
 
+class luisAPI(object):
+    def __init__(self, text):
+        self.appID = '20b68788-ce6e-4817-a7f0-fd1f09da9d44'
+        self.app_key = '31b2ecbf4eb94aa289c41e9a2fd36c38'
+        self.text = text
+
+    def process_res(self,res):
+        print('LUIS Resopnse:')
+        print('Query: ' + res.get_query())
+        print('Top Scoring Intent: ' + res.get_top_intent().get_name())
+        if res.get_dialog() is not None:
+            if res.get_dialog().get_prompt() is None:
+                print('Dialog Prompt: None')
+            else:
+                print('Dialog Prompt: ' + res.get_dialog().get_prompt())
+            if res.get_dialog().get_parameter_name() is None:
+                print('Dialog Parameter: None')
+            else:
+                print('Dialog Parameter Name: ' + res.get_dialog().get_parameter_name())
+            print('Dialog Status: ' + res.get_dialog().get_status())
+        print('Entities:')
+        for entity in res.get_entities():
+            print('"%s":' % entity.get_name())
+            print('Type: %s, Score: %s' % (entity.get_type(), entity.get_score()))
+
+    def get_luis_response(self):
+        try:
+            client = LUISClient(self.appID, self.app_key, True)
+            res = client.predict(self.text)
+            while res.get_dialog() is not None and not res.get_dialog().is_finished():
+                self.text = input('%s\n'%res.get_dialog().get_prompt())
+                res = client.reply(self.text,res)
+            self.process_res(res)
+        except Exception as exc:
+            print(exc)
+
 if __name__ == "__main__":
-    lalal = EmotionAPI()
-    print(lalal.get_emotions())
+    #lalal = SpeechAPI()
+    #print(lalal.get_speech_service('temp/whatstheweatherlike.wav'))
+    lalala = luisAPI('开灯')
+    lalala.get_luis_response()
+
 
 
