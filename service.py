@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from device import Camera, Microphone
-from cognitive_services import EmotionAPI, SpeechAPI
+from cognitive_services import EmotionAPI, SpeechAPI, luisAPI
 
 
 class Speech2TextService(QtCore.QThread):
@@ -41,10 +41,16 @@ class EmotionAnalyzeService(QtCore.QThread):
 
 
 class LanguageUnderstandingService(QtCore.QThread):
-    trigger = QtCore.pyqtSignal()
+    trigger = QtCore.pyqtSignal(dict)
 
-    def __init__(self):
+    def __init__(self,text):
         super(LanguageUnderstandingService, self).__init__()
+        self.text = text
+        self.api = luisAPI(text)
 
     def run(self):
-        pass
+        data = self.api.get_luis_response()
+        if data != {}:
+            self.trigger.emit(data)
+        else:
+            self.trigger.emit({'error': 'we dont have such an operation'})

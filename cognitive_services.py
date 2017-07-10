@@ -98,6 +98,7 @@ class luisAPI(object):
         self.appID = '20b68788-ce6e-4817-a7f0-fd1f09da9d44'
         self.app_key = '31b2ecbf4eb94aa289c41e9a2fd36c38'
         self.text = text
+        self.operations = {}
 
     def process_res(self,res):
         print('LUIS Resopnse:')
@@ -113,12 +114,16 @@ class luisAPI(object):
             else:
                 print('Dialog Parameter Name: ' + res.get_dialog().get_parameter_name())
             print('Dialog Status: ' + res.get_dialog().get_status())
-        else:
-            return None
         print('Entities:')
         for entity in res.get_entities():
             print('"%s":' % entity.get_name())
             print('Type: %s, Score: %s' % (entity.get_type(), entity.get_score()))
+            self.operations[res.get_top_intent().get_name()] = entity.get_type()
+        if res.get_top_intent().get_name() == 'None':
+            self.operations.clear()
+        print(self.operations)
+        return self.operations
+
 
     def get_luis_response(self):
         try:
@@ -134,8 +139,9 @@ class luisAPI(object):
 if __name__ == "__main__":
     #lalal = SpeechAPI()
     #print(lalal.get_speech_service('temp/whatstheweatherlike.wav'))
-    lalala = luisAPI('啦啦啦啦')
+    lalala = luisAPI('lalalal')
     lalala.get_luis_response()
+    print(lalala.operations)
 
 
 
