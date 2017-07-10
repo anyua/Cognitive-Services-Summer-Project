@@ -19,8 +19,24 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # self.speech = EmotionAnalyzeService()
         # self.speech.trigger.connect(self.putout_data)
         # self.speech.start()
+        self.thread_list = []
+        self.emotion_count = 10
+        self.timer = QtCore.QTimer(self)
+        self.timer.timeout.connect(self.get_emotion_once)
+        self.timer.start(3000)
+        # self.get_emotion_once()
 
-    def putout_data(self):
-        print("lalal")
+    def get_emotion_once(self):
+        if self.emotion_count >= 0:
+            self.emotion_count -= 1
+            emotion = EmotionAnalyzeService()
+            emotion.trigger.connect(self.putout_data)
+            emotion.start()
+            self.thread_list.append(emotion)
+        else:
+            self.timer.stop()
+
+    def putout_data(self, data):
+        print(data)
 
 

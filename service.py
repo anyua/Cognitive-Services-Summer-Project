@@ -23,7 +23,7 @@ class Speech2TextService(QtCore.QThread):
 
 
 class EmotionAnalyzeService(QtCore.QThread):
-    trigger = QtCore.pyqtSignal(str)
+    trigger = QtCore.pyqtSignal(dict)
     my_camera = Camera()
     api = EmotionAPI()
 
@@ -32,8 +32,10 @@ class EmotionAnalyzeService(QtCore.QThread):
 
     def run(self):
         data = self.api.get_emotions()
-        print(data)
-        self.trigger.emit(data)
+        if data:
+            self.trigger.emit(data)
+        else:
+            self.trigger.emit({'error': ''})
 
 
 class LanguageUnderstandingService(QtCore.QThread):

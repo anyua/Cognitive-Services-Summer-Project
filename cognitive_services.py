@@ -39,11 +39,15 @@ class EmotionAPI(object):
             return self.data
         except Exception as e:
             print(e.args)
+            return None
 
     def get_emotions(self):
-        self.get_response()
-        self.emotion = self.data[0]["scores"]
-        return self.emotion
+        if self.get_response():
+            print(self.data)
+            self.emotion = self.data[0]["scores"]
+            return self.emotion
+        else:
+            return None
 
 
 class SpeechAPI(object):
@@ -90,7 +94,7 @@ class SpeechAPI(object):
 
 
 if __name__ == "__main__":
-    lalal = SpeechAPI()
-    print(lalal.get_speech_service('temp/whatstheweatherlike.wav'))
+    lalal = EmotionAPI()
+    print(lalal.get_emotions())
 
 
