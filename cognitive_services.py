@@ -5,6 +5,7 @@ import urllib.parse
 import urllib.error
 from device import Camera
 import requests
+import time
 
 
 class EmotionAPI(object):
@@ -45,7 +46,6 @@ class EmotionAPI(object):
         return self.emotion
 
 
-
 class SpeechAPI(object):
     def __init__(self):
         self.token_url = 'https://api.cognitive.microsoft.com' \
@@ -56,12 +56,13 @@ class SpeechAPI(object):
                        '/speech/recognition/interactive/cognitiveservices/v1?language=zh-CN'
         self.api_headers = {'Content-type': 'audio/wav; codec="audio/pcm"; samplerate=16000',
                             'Transfer-Encoding': 'chunked',
-                            'Authorization': 'Bearer ' + self.token}
+                            'Authorization': 'Bearer '}
         self.token = ""
-        # 'Authorization': 'Bearer ' + token
         self.speeech = ""
+        self.token_time = None
 
-    def read_in_block(self, filename='temp/temp.wav'):
+    @staticmethod
+    def read_in_block(filename):
         block_size = 1024
         with open(filename, 'rb') as f:
             while True:
@@ -71,20 +72,25 @@ class SpeechAPI(object):
                 else:
                     return
 
-
     def access_token(self):
-        myHeaders = self.token_headers
-        url = 'https://api.cognitive.microsoft.com/sts/v1.0/issueToken'
         response = requests.post(self.token_url, headers=self.token_headers)
-        response.raise_for_status()
         self.token = response.text
-        print(self.token)
+        self.token_time = time.time()
+        # print(self.token)
+
+    def get_speech_service(self, filename='temp/temp.wav'):
+        now_time = time.time()
+        if (not self.token_time) or (now_time - self.token_time)/60 < 8:
+            self.access_token()
+        self.api_headers['Authorization'] += self.token
+        r = requests.post(self.api_url, headers=self.api_headers, data=self.read_in_block(filename))
+        # print(r.text)
+        # print(r.status_code)
+        return json.loads(r.text)
 
 
-    def get_speech_service(self):
-        r = requests.post(self.api_url, headers=self.api_headers, data=self.read_in_block())
-        print(r.text)
-        print(r.status_code)
-        return r.text
+if __name__ == "__main__":
+    lalal = SpeechAPI()
+    print(lalal.get_speech_service('temp/whatstheweatherlike.wav'))
 
 

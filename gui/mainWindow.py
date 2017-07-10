@@ -20,7 +20,7 @@ class Ui_MainWindow(object):
 "color: rgb(118, 118, 118);")
         self.label1.setObjectName("label1")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(210, 100, 541, 491))
+        self.label.setGeometry(QtCore.QRect(170, 40, 541, 491))
         self.label.setObjectName("label")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)

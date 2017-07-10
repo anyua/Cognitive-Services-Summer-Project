@@ -2,4 +2,7 @@
   <qresource prefix="img">
     <file alias="speaking">gui/resources/image/image.gif</file>
   </qresource>
+  <qresource prefix="font">
+    <file alias="awesome">gui/resources/fontawesome-webfont.ttf</file>
+  </qresource>
 </RCC>

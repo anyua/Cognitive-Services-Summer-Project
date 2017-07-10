@@ -59,7 +59,6 @@ class Microphone(object):
         pa = PyAudio()
         stream = pa.open(format=paInt16, channels=1, rate=self.sampling_rate, input=True,
                          frames_per_buffer=self.num_samples)
-
         save_count = 0
         save_buffer = []
         time_count = self.time_count
@@ -103,6 +102,8 @@ class Microphone(object):
                     return False
 
     def get_audio_bytes(self):
+        self.read_audio()
+        self.save_wav()
         with open(self.filename, 'r') as f:
             return f.read()
 
