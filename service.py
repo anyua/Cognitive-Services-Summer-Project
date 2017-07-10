@@ -5,6 +5,7 @@ from cognitive_services import EmotionAPI, SpeechAPI
 
 class Speech2TextService(QtCore.QThread):
     trigger = QtCore.pyqtSignal(str)
+    stop_the_cat = QtCore.pyqtSignal(bool)
 
     def __init__(self):
         super(Speech2TextService, self).__init__()
@@ -14,6 +15,7 @@ class Speech2TextService(QtCore.QThread):
     def run(self):
         self.my_microphone.read_audio()
         self.my_microphone.save_wav()
+        self.stop_the_cat.emit(True)
         data = self.api.get_speech_service()
         if 'RecognitionStatus' in data and 'DisplayText' in data and data['RecognitionStatus'] == 'Success':
             self.trigger.emit(data['DisplayText'])

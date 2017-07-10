@@ -51,7 +51,7 @@ class Microphone(object):
         self.level = 1500  # 声音保存的阈值
         self.count_num = 20  # count_num个取样之内出现COUNT_NUM个大于LEVEL的取样则记录声音
         self.save_length = 8  # 声音记录的最小长度：save_length * num_samples 个取样
-        self.time_count = 50  # 录音时间，单位s
+        self.time_count = 30  # 录音时间，单位s
         self.voice_string = []
         self.filename = "temp/temp.wav"
 
@@ -82,7 +82,7 @@ class Microphone(object):
             # 计算大于 level 的取样的个数
             large_sample_count = np.sum(audio_data > self.level)
 
-            print(np.max(audio_data)), "large_sample_count=>", large_sample_count
+            # print(np.max(audio_data)), "large_sample_count=>", large_sample_count
 
             # 如果个数大于COUNT_NUM，则至少保存SAVE_LENGTH个块
             if large_sample_count > self.count_num:
