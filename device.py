@@ -19,18 +19,19 @@ class Camera(object):
 
     def get_frame(self):
         self.mutex.acquire()
-        self.device = cv2.VideoCapture(r"C:\Users\anyua\Desktop\开心.mp4")
+        self.device = cv2.VideoCapture(r"C:\Users\anyua\Desktop\123.MOV")
         # self.device = cv2.VideoCapture(CAMERA_NUM)
         self.ret, self.frame = self.device.read()
         self.device.release()
         self.mutex.release()
+        # self.show_frame()  #debug
         return self.frame
 
     def show_frame(self):
         # self.open_img()  # 实际应该修改为 get_frame()
-        self.get_frame()
+        # self.get_frame()
         cv2.imshow('camera', self.frame)
-        cv2.waitKey(0)
+        cv2.waitKey(1)
 
     def get_jpg(self):
         # self.open_img()  # 实际应该修改为 get_frame()
@@ -41,7 +42,7 @@ class Camera(object):
         return data
 
     def open_img(self):
-        self.frame = cv2.imread(r"C:\Users\anyua\Desktop\IMG_6685.JPG")
+        self.frame = cv2.imread(r"C:\Users\anyua\Desktop\123.jpg")
 
 
 class Microphone(object):

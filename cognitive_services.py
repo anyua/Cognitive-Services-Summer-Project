@@ -34,13 +34,13 @@ class EmotionAPI(object):
             self.conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
             self.conn.request("POST", "/emotion/v1.0/recognize?%s" % self.params, self.body, self.headers)
             self.response = self.conn.getresponse()
-            # print(self.response.status)
+            print(self.response.status)
             # print(self.response.read())
             self.data = json.loads(self.response.read())
             self.conn.close()
             return self.data
         except Exception as e:
-            print(e.args)
+            print(e)
             return None
 
     def get_emotions(self):
@@ -140,9 +140,8 @@ class luisAPI(object):
             return {}
 
 if __name__ == "__main__":
-    lalala = luisAPI('lalalal')
-    lalala.get_luis_response()
-    print(lalala.operations)
+    lalala = EmotionAPI()
+    print(lalala.get_emotions())
 
 
 
