@@ -19,8 +19,8 @@ class Camera(object):
 
     def get_frame(self):
         self.mutex.acquire()
-        # self.device = cv2.VideoCapture(r"C:\Users\anyua\Desktop\Slam视频\演示文稿3.mp4")
-        self.device = cv2.VideoCapture(CAMERA_NUM)
+        self.device = cv2.VideoCapture(r"C:\Users\anyua\Desktop\开心.mp4")
+        # self.device = cv2.VideoCapture(CAMERA_NUM)
         self.ret, self.frame = self.device.read()
         self.device.release()
         self.mutex.release()
@@ -98,14 +98,14 @@ class Microphone(object):
                 if len(save_buffer) > 0:
                     self.voice_string = save_buffer
                     save_buffer = []
-                    print("Recode a piece of  voice successfully!")
+                    print("Recode a piece of voice successfully!")
                     return True
 
             if time_count == 0:
                 if len(save_buffer) > 0:
                     self.voice_string = save_buffer
                     save_buffer = []
-                    print("Recode a piece of  voice successfully!")
+                    print("Recode a piece of voice successfully!")
                     return True
                 else:
                     return False

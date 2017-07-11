@@ -5,7 +5,7 @@ from cognitive_services import EmotionAPI, SpeechAPI, luisAPI
 
 class Speech2TextService(QtCore.QThread):
     trigger = QtCore.pyqtSignal(str)
-    stop_the_cat = QtCore.pyqtSignal(bool)
+    listening_complete = QtCore.pyqtSignal()
 
     def __init__(self):
         super(Speech2TextService, self).__init__()
@@ -21,11 +21,12 @@ class Speech2TextService(QtCore.QThread):
             print(e)
             self.trigger.emit('')
             return
-        self.stop_the_cat.emit(True)
+        self.listening_complete.emit()
         data = self.api.get_speech_service()
         if 'RecognitionStatus' in data and 'DisplayText' in data and data['RecognitionStatus'] == 'Success':
             self.trigger.emit(data['DisplayText'])
         else:
+            print("don't success!!!!!!!!!!!!!")
             print(data)
             self.trigger.emit('')
 
