@@ -13,15 +13,21 @@ class Speech2TextService(QtCore.QThread):
         self.api = SpeechAPI()
 
     def run(self):
-        self.my_microphone.read_audio()
-        self.my_microphone.save_wav()
+        try:
+            self.my_microphone.read_audio()
+            self.my_microphone.save_wav()
+        except Exception as e:
+            print("something error of the microphone........")
+            print(e)
+            self.trigger.emit('')
+            return
         self.stop_the_cat.emit(True)
         data = self.api.get_speech_service()
         if 'RecognitionStatus' in data and 'DisplayText' in data and data['RecognitionStatus'] == 'Success':
             self.trigger.emit(data['DisplayText'])
         else:
             print(data)
-            self.trigger.emit("something error...")
+            self.trigger.emit('')
 
 
 class EmotionAnalyzeService(QtCore.QThread):
