@@ -11,6 +11,7 @@ CAMERA_NUM = 0
 
 class Camera(object):
     mutex = threading.Lock()
+    device = cv2.VideoCapture(CAMERA_NUM)
 
     def __init__(self):
         self.device = None
@@ -19,17 +20,13 @@ class Camera(object):
 
     def get_frame(self):
         self.mutex.acquire()
-        # self.device = cv2.VideoCapture(r"C:\Users\anyua\Desktop\123.MOV")
-        self.device = cv2.VideoCapture(CAMERA_NUM)
+        # self.device = cv2.VideoCapture(CAMERA_NUM)
         self.ret, self.frame = self.device.read()
-        self.device.release()
+        # self.device.release()
         self.mutex.release()
-        # self.show_frame()  #debug
         return self.frame
 
     def show_frame(self):
-        # self.open_img()  # 实际应该修改为 get_frame()
-        # self.get_frame()
         cv2.imshow('camera', self.frame)
         cv2.waitKey(0)
 
