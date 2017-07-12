@@ -34,15 +34,15 @@ class Camera(object):
         cv2.waitKey(0)
 
     def get_jpg(self):
-        # self.open_img()  # 实际应该修改为 get_frame()
-        self.get_frame()
+        self.open_img()  # 实际应该修改为 get_frame()
+        # self.get_frame()
         encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
         result, img_encode = cv2.imencode('.jpg', self.frame, encode_param)
         data = numpy.array(img_encode).tobytes()
         return data
 
     def open_img(self):
-        self.frame = cv2.imread(r"C:\Users\anyua\Desktop\123.jpg")
+        self.frame = cv2.imread(r"C:\Users\anyua\Desktop\123.png")
 
 
 class Microphone(object):

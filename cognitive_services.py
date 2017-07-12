@@ -87,7 +87,7 @@ class SpeechAPI(object):
         self.token_time = time.time()
         # print(self.token)
 
-    def get_speech_service(self, filename='temp/whatstheweatherlike.wav'): # 方便测试
+    def get_speech_service(self, filename='temp/temp.wav'):  # 方便测试
         now_time = time.time()
         if (not self.token_time) or (now_time - self.token_time)/60 < 8:
             self.access_token()

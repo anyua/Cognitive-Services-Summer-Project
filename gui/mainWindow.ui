@@ -13,13 +13,23 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(0, 0, 0);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="2" column="0">
-     <widget class="QLineEdit" name="textEdit"/>
+     <widget class="QLineEdit" name="textEdit">
+      <property name="styleSheet">
+       <string notr="true">color: rgb(255, 255, 255);</string>
+      </property>
+     </widget>
     </item>
     <item row="1" column="0">
      <widget class="QToolBox" name="toolBox">
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(0, 0, 0);</string>
+      </property>
       <property name="currentIndex">
        <number>0</number>
       </property>
@@ -31,6 +41,9 @@
          <width>354</width>
          <height>490</height>
         </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
        </property>
        <attribute name="label">
         <string/>
@@ -63,6 +76,9 @@
           <height>61</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);</string>
+        </property>
         <property name="html">
          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -79,6 +95,9 @@ p, li { white-space: pre-wrap; }
           <width>41</width>
           <height>41</height>
          </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(208, 208, 208);</string>
         </property>
         <property name="text">
          <string>灯</string>
@@ -132,6 +151,9 @@ p, li { white-space: pre-wrap; }
           <height>41</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(208, 208, 208);</string>
+        </property>
         <property name="text">
          <string>门</string>
         </property>
@@ -145,12 +167,15 @@ p, li { white-space: pre-wrap; }
           <height>41</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(208, 208, 208);</string>
+        </property>
         <property name="text">
          <string>空调</string>
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="">
+      <widget class="QWidget" name="widget">
        <property name="geometry">
         <rect>
          <x>0</x>
@@ -171,18 +196,21 @@ p, li { white-space: pre-wrap; }
           <height>331</height>
          </rect>
         </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);</string>
+        </property>
        </widget>
        <widget class="QPushButton" name="littleCortana">
         <property name="geometry">
          <rect>
-          <x>120</x>
+          <x>130</x>
           <y>370</y>
           <width>76</width>
           <height>88</height>
          </rect>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string/>
         </property>
         <property name="iconSize">
          <size>
