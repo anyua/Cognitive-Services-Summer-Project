@@ -10,6 +10,7 @@ from luis_sdk import LUISClient
 
 
 class EmotionAPI(object):
+
     def __init__(self, camera=Camera()):
         self.headers = {
             # Request headers. Replace the placeholder key below with your subscription key.
@@ -34,12 +35,14 @@ class EmotionAPI(object):
             self.conn = http.client.HTTPSConnection('westus.api.cognitive.microsoft.com')
             self.conn.request("POST", "/emotion/v1.0/recognize?%s" % self.params, self.body, self.headers)
             self.response = self.conn.getresponse()
-            print(self.response.status)
+            print('情感识别返回状态码：'+ str(self.response.status))
+            # print(self.response.headers)
             # print(self.response.read())
             self.data = json.loads(self.response.read())
             self.conn.close()
             return self.data
         except Exception as e:
+            print("error in get_response")
             print(e)
             return None
 
@@ -48,8 +51,7 @@ class EmotionAPI(object):
             self.emotion = self.data[0]["scores"]
             return self.emotion
         else:
-            print("empty response↓")
-            print(self.data)
+            print("空的响应数据:"+str(self.data))
             return None
 
 
@@ -85,7 +87,7 @@ class SpeechAPI(object):
         self.token_time = time.time()
         # print(self.token)
 
-    def get_speech_service(self, filename='temp/temp.wav'):
+    def get_speech_service(self, filename='temp/whatstheweatherlike.wav'): # 方便测试
         now_time = time.time()
         if (not self.token_time) or (now_time - self.token_time)/60 < 8:
             self.access_token()
@@ -104,6 +106,7 @@ class luisAPI(object):
         self.operations = {}
 
     def process_res(self, res):
+        print('**********LUIS status**********')
         print('LUIS Resopnse:')
         print('Query: ' + res.get_query())
         print('Top Scoring Intent: ' + res.get_top_intent().get_name())
@@ -125,6 +128,7 @@ class luisAPI(object):
         if res.get_top_intent().get_name() == 'None':
             self.operations.clear()
         print(self.operations)
+        print('**********END LUIS**********')
         return self.operations
 
     def get_luis_response(self):
@@ -141,7 +145,7 @@ class luisAPI(object):
 
 
 class BingWebSearchAPI(object):
-    def __init__(self,text):
+    def __init__(self, text):
         self.api_key = 'f317c3d7cbfd4f9ab6a3815677759680'
         self.headers = {'Ocp-Apim-Subscription-Key': self.api_key}
         self.text = text
@@ -159,10 +163,14 @@ class BingWebSearchAPI(object):
         conn.request("GET", "/bing/v5.0/search?%s" % self.params, 'lalalala', self.headers)
         response = conn.getresponse()
         data = response.read()
+        # print(data)
         code_data = json.loads(data)
+        print('搜索结果原始数据: '+str(code_data))
         self.list = code_data.get('webPages').get('value')
-        print(self.list)
+        # print(self.list)
         conn.close()
+        return self.list
+
 
 if __name__ == "__main__":
     '''lalala = luisAPI('柠檬水')

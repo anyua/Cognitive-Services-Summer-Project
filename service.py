@@ -26,8 +26,7 @@ class Speech2TextService(QtCore.QThread):
         if 'RecognitionStatus' in data and 'DisplayText' in data and data['RecognitionStatus'] == 'Success':
             self.trigger.emit(data['DisplayText'])
         else:
-            print("don't success!!!!!!!!!!!!!")
-            print(data)
+            print("语音转文字失败："+ str(data))
             self.trigger.emit('')
 
 
@@ -60,7 +59,7 @@ class LanguageUnderstandingService(QtCore.QThread):
         if data != {}:
             self.trigger.emit(data)
         else:
-            self.trigger.emit({'error': 'we dont have such an operation'})
+            self.trigger.emit({'error': self.text})
 
 
 class BingWebSearchService(QtCore.QThread):
@@ -76,4 +75,4 @@ class BingWebSearchService(QtCore.QThread):
         if data:
             self.trigger.emit(data)
         else:
-            self.trigger.emit({'error': ''})
+            self.trigger.emit(['error'])
