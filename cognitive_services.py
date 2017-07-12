@@ -139,7 +139,37 @@ class luisAPI(object):
             print(exc)
             return {}
 
+
+class BingWebSearchAPI(object):
+    def __init__(self,text):
+        self.api_key = 'f317c3d7cbfd4f9ab6a3815677759680'
+        self.headers = {'Ocp-Apim-Subscription-Key': self.api_key}
+        self.text = text
+        self.params = urllib.parse.urlencode({
+            'q': self.text,
+            'count': '10',
+            'offset': '0',
+            'mkt': 'zh-CN',
+            'safesearch': 'Moderate',
+        })
+        self.list = []
+
+    def get_web_search(self):
+        conn = http.client.HTTPSConnection('api.cognitive.microsoft.com')
+        conn.request("GET", "/bing/v5.0/search?%s" % self.params, 'lalalala', self.headers)
+        response = conn.getresponse()
+        data = response.read()
+        code_data = json.loads(data)
+        self.list = code_data.get('webPages').get('value')
+        print(self.list)
+        conn.close()
+
 if __name__ == "__main__":
+    '''lalala = luisAPI('柠檬水')
+    lalala.get_luis_response()
+    print(lalala.operations)
+    lalala = BingWebSearchAPI('柠檬水')
+    lalala.get_web_search()'''
     lalala = EmotionAPI()
     print(lalala.get_emotions())
 

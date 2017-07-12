@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from device import Camera, Microphone
-from cognitive_services import EmotionAPI, SpeechAPI, luisAPI
+from cognitive_services import EmotionAPI, SpeechAPI, luisAPI, BingWebSearchAPI
 
 
 class Speech2TextService(QtCore.QThread):
@@ -61,3 +61,19 @@ class LanguageUnderstandingService(QtCore.QThread):
             self.trigger.emit(data)
         else:
             self.trigger.emit({'error': 'we dont have such an operation'})
+
+
+class BingWebSearchService(QtCore.QThread):
+    trigger = QtCore.pyqtSignal(list)
+
+    def __init__(self, text):
+        super(BingWebSearchService, self).__init__()
+        self.text = text
+        self.api = BingWebSearchAPI(self.text)
+
+    def run(self):
+        data = self.api.get_web_search()
+        if data:
+            self.trigger.emit(data)
+        else:
+            self.trigger.emit({'error': ''})

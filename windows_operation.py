@@ -1,7 +1,7 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 from gui.mainWindow import Ui_MainWindow
 import icon_rc
-from service import Speech2TextService, EmotionAnalyzeService, LanguageUnderstandingService
+from service import Speech2TextService, EmotionAnalyzeService, LanguageUnderstandingService, BingWebSearchService
 
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -39,6 +39,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def new_voice(self):
         speech = Speech2TextService()
         speech.trigger.connect(self.analyze_text)
+        speech.trigger.connect(self.analyze_cmd)
         speech.listening_complete.connect(self.cortana_is_thinking)
         speech.start()
         self.thread_list.append(speech)
@@ -55,8 +56,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             understanding.start()
             self.thread_list.append(understanding)
 
-    def analyze_cmd(self, cmd):
+    def analyze_cmd(self, cmd, text):
         if cmd == {}:
+            text.trigger.connect(self.get_bing_web_search)
+            text.start()
+            self.thread_list.append(text)
             # 进行搜索
             pass
         else:
@@ -107,6 +111,15 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def set_cortane_icon(self):
         self.cortana.setIcon(QtGui.QIcon(self.movie.currentPixmap()))
+
+    def get_bing_web_search(self,text):
+        web_result = BingWebSearchService(text)
+        web_result.trigger.connect(self.show_web_result)
+        web_result.start()
+        self.thread_list.append(web_result)
+
+    def show_web_result(self, list):
+        self.webBrowser.setText(list[0])
 
     @staticmethod
     def printout_data(data):

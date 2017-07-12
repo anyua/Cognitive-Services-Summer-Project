@@ -86,4 +86,5 @@ class Ui_MainWindow(object):
         self.littleCortana.setText(_translate("MainWindow", "PushButton"))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page_2), _translate("MainWindow", "Page 2"))
 
+
 import icon_rc
