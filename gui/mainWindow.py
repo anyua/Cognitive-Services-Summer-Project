@@ -174,7 +174,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "啦啦啦"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "La La Cortana"))
         self.lightLabel.setText(_translate("MainWindow", "灯"))
         self.lightRadioButton.setText(_translate("MainWindow", "TextLabel"))
         self.doorLable.setText(_translate("MainWindow", "门"))

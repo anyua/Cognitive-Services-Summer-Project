@@ -66,8 +66,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 样式
         self.textEdit.setDisabled(True)
         self.toolBox.setStyleSheet("QToolBox::tab{border-top-style:solid;border-top-color:grey;border-top-width:1px;}")
+        self.feedBackBrowser.setStyleSheet("border:none")
 
     def new_voice(self):
+        self.textEdit.setText(". . . . . .")
         self.emotion_effective_flag = False
         speech = Speech2TextService()
         speech.trigger.connect(self.analyze_text)
@@ -99,6 +101,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.toolBox.setCurrentIndex(1)
         else:
             # 去处理图标
+            self.toolBox.setCurrentIndex(0)
             if '灯' in cmd:
                 if cmd['灯'] == '开':
                     self.lightRadioButton.setText(OPEN_BUTTON)
