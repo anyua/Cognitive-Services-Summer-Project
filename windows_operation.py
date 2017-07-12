@@ -4,6 +4,9 @@ import icon_rc
 import time
 from service import Speech2TextService, EmotionAnalyzeService, LanguageUnderstandingService, BingWebSearchService
 
+OPEN_BUTTON = chr(0xf205)
+CLOSE_BUTTON = chr(0xf204)
+
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def __init__(self):
@@ -18,12 +21,18 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 向字体库中添加字体
         QtGui.QFontDatabase.addApplicationFont(":font/awesome")
         # 设置字体
-        self.lightLabel.setFont(QtGui.QFont('FontAwesome', 28))
-        self.lightLabel.setText(chr(0xf282))
-        self.doorLable.setFont(QtGui.QFont('FontAwesome', 28))
-        self.doorLable.setText(chr(0xf0eb))
-        self.airConditionerLable.setFont(QtGui.QFont('FontAwesome', 28))
-        self.airConditionerLable.setText(chr(0xf0eb))
+        self.lightLabel.setFont(QtGui.QFont('FontAwesome', 26))
+        self.lightLabel.setText(chr(0xf0eb))
+        self.doorLable.setFont(QtGui.QFont('FontAwesome', 26))
+        self.doorLable.setText(chr(0xf13e))
+        self.airConditionerLable.setFont(QtGui.QFont('FontAwesome', 26))
+        self.airConditionerLable.setText(chr(0xf2dc))
+        self.lightRadioButton.setFont(QtGui.QFont('FontAwesome', 12))
+        self.lightRadioButton.setText(OPEN_BUTTON)
+        self.doorRadioButton.setFont(QtGui.QFont('FontAwesome', 12))
+        self.doorRadioButton.setText(CLOSE_BUTTON)
+        self.airConditionerRadioButton.setFont(QtGui.QFont('FontAwesome', 12))
+        self.airConditionerRadioButton.setText(CLOSE_BUTTON)
 
         # 添加动图
         self.movie = None
@@ -72,19 +81,19 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             # 去处理图标
             if '灯' in cmd:
                 if cmd['灯'] == '开':
-                    pass
+                    self.lightRadioButton.setText(OPEN_BUTTON)
                 elif cmd['灯'] == '关':
-                    pass
+                    self.lightRadioButton.setText(CLOSE_BUTTON)
             elif '空调' in cmd:
                 if cmd['空调'] == '开':
-                    pass
+                    self.airConditionerRadioButton.setText(OPEN_BUTTON)
                 elif cmd['空调'] == '关':
-                    pass
+                    self.airConditionerRadioButton.setText(CLOSE_BUTTON)
             elif '门' in cmd:
                 if cmd['门'] == '开':
-                    pass
+                    self.doorRadioButton.setText(OPEN_BUTTON)
                 elif cmd['门'] == '关':
-                    pass
+                    self.doorRadioButton.setText(CLOSE_BUTTON)
         self.get_emotion()
 
     def get_bing_web_search(self, text):
@@ -123,7 +132,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.emotion_list.append(result_emotion)
         if 'happiness' in self.emotion_list or \
                 'surprise' in self.emotion_list:
-            self.sad_result()
+            self.happy_result()
         elif 'sadness' in self.emotion_list or \
                 'disgust' in self.emotion_list or \
                 'anger' in self.emotion_list:
