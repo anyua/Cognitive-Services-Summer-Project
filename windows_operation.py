@@ -51,6 +51,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.happy_gif = QtGui.QMovie(':img/happy')
         self.sad_gif = QtGui.QMovie(':img/sad')
         self.cortana_is_waiting()
+        self.sad_flag = 0
+        self.happy_flag = 0
 
         # 绑定按钮
         self.cortana.clicked.connect(self.new_voice)
@@ -61,7 +63,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.result_once = 0
         # 样式
         self.textEdit.setDisabled(True)
-
         self.toolBox.setStyleSheet("QToolBox::tab{border-top-style:solid;border-top-color:grey;border-top-width:1px;}")
 
     def new_voice(self):
@@ -75,6 +76,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def analyze_text(self, text):
         if text.strip() == "":
             print("语音转文字结果为空，不进行进一步分析")
+            self.textEdit.setText("没有识别到语音信号....")
             self.get_emotion()  # debug
             pass
         else:
@@ -161,7 +163,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.emotion_list.append(result_emotion)
             if 'happiness' in self.emotion_list or \
                     'surprise' in self.emotion_list:
-                self.happy_result()
+                self.sad_result()
             elif 'sadness' in self.emotion_list or \
                     'disgust' in self.emotion_list or \
                     'anger' in self.emotion_list:
@@ -176,14 +178,29 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.result_once -= 1
             self.happy_cortane()
             self.feedBackBrowser.setText("对啦")
+            self.feedBackBrowser.setHtml("<center>对啦</center>")
+            self.happy_flag = 300
+            self.happy_gif.frameChanged.connect(self.happy_twice)
 
     def sad_result(self):
         if self.result_once > 0:
             self.result_once -= 1
             self.sad_cortane()
             self.feedBackBrowser.setText("听错了")
-            # time.sleep(1000)
-            # self.sad_gif.frameChanged.connect(lambda :if self.sad_gif.loopCount()>2 return self.new_voice())
+            self.sad_flag = 300
+            self.sad_gif.frameChanged.connect(self.sad_twice)
+
+    def sad_twice(self):
+        if self.sad_flag < 0:
+            self.cortana.click()
+        else:
+            self.sad_flag -= 1
+
+    def happy_twice(self):
+        if self.happy_flag < 0:
+            self.cortana_is_waiting()
+        else:
+            self.happy_flag -= 1
 
     def normal_result(self):
         if self.result_once > 0:
