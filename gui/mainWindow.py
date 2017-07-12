@@ -12,6 +12,9 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(372, 586)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(":/img/gui/resources/image/icon.jpg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -44,7 +47,7 @@ class Ui_MainWindow(object):
         self.lightLabel = QtWidgets.QLabel(self.page)
         self.lightLabel.setMinimumSize(QtCore.QSize(40, 40))
         self.lightLabel.setMaximumSize(QtCore.QSize(40, 40))
-        self.lightLabel.setStyleSheet("color: rgb(208, 208, 208);")
+        self.lightLabel.setStyleSheet("color: rgb(255, 255, 255);")
         self.lightLabel.setObjectName("lightLabel")
         self.verticalLayout.addWidget(self.lightLabel)
         self.lightRadioButton = QtWidgets.QLabel(self.page)
@@ -60,7 +63,7 @@ class Ui_MainWindow(object):
         self.doorLable = QtWidgets.QLabel(self.page)
         self.doorLable.setMinimumSize(QtCore.QSize(40, 40))
         self.doorLable.setMaximumSize(QtCore.QSize(40, 40))
-        self.doorLable.setStyleSheet("color: rgb(208, 208, 208);")
+        self.doorLable.setStyleSheet("color: rgb(74, 74, 74);")
         self.doorLable.setObjectName("doorLable")
         self.verticalLayout_2.addWidget(self.doorLable)
         self.doorRadioButton = QtWidgets.QLabel(self.page)
@@ -76,7 +79,7 @@ class Ui_MainWindow(object):
         self.airConditionerLable = QtWidgets.QLabel(self.page)
         self.airConditionerLable.setMinimumSize(QtCore.QSize(40, 40))
         self.airConditionerLable.setMaximumSize(QtCore.QSize(40, 40))
-        self.airConditionerLable.setStyleSheet("color: rgb(208, 208, 208);")
+        self.airConditionerLable.setStyleSheet("color: rgb(207, 207, 207);")
         self.airConditionerLable.setObjectName("airConditionerLable")
         self.verticalLayout_3.addWidget(self.airConditionerLable)
         self.airConditionerRadioButton = QtWidgets.QLabel(self.page)
@@ -140,8 +143,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.webBrowser = QtWidgets.QTextBrowser(self.widget)
         self.webBrowser.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"border: 3px\n"
-"")
+"border: 3px;")
         self.webBrowser.setObjectName("webBrowser")
         self.verticalLayout_5.addWidget(self.webBrowser)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
@@ -166,12 +168,12 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.toolBox.setCurrentIndex(1)
+        self.toolBox.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "啦啦啦"))
         self.lightLabel.setText(_translate("MainWindow", "灯"))
         self.lightRadioButton.setText(_translate("MainWindow", "TextLabel"))
         self.doorLable.setText(_translate("MainWindow", "门"))
