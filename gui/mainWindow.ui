@@ -28,10 +28,11 @@
     <item row="2" column="0">
      <widget class="QToolBox" name="toolBox">
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(0, 0, 0);</string>
+       <string notr="true">background-color: rgb(0, 0, 0);
+alternate-background-color: rgb(255, 130, 20);</string>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page">
        <property name="geometry">

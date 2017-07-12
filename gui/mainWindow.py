@@ -22,7 +22,8 @@ class Ui_MainWindow(object):
         self.textEdit.setObjectName("textEdit")
         self.gridLayout.addWidget(self.textEdit, 3, 0, 1, 1)
         self.toolBox = QtWidgets.QToolBox(self.centralwidget)
-        self.toolBox.setStyleSheet("background-color: rgb(0, 0, 0);")
+        self.toolBox.setStyleSheet("background-color: rgb(0, 0, 0);\n"
+"alternate-background-color: rgb(255, 130, 20);")
         self.toolBox.setObjectName("toolBox")
         self.page = QtWidgets.QWidget()
         self.page.setGeometry(QtCore.QRect(0, 0, 354, 490))
@@ -158,7 +159,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.toolBox.setCurrentIndex(1)
+        self.toolBox.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

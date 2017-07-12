@@ -23,9 +23,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 设置字体
         self.lightLabel.setFont(QtGui.QFont('FontAwesome', 26))
         self.lightLabel.setText(chr(0xf0eb))
-        self.doorLable.setFont(QtGui.QFont('FontAwesome', 26))
+        self.doorLable.setFont(QtGui.QFont('FontAwesome', 25))
         self.doorLable.setText(chr(0xf13e))
-        self.airConditionerLable.setFont(QtGui.QFont('FontAwesome', 26))
+        self.airConditionerLable.setFont(QtGui.QFont('FontAwesome', 24))
         self.airConditionerLable.setText(chr(0xf2dc))
         self.lightRadioButton.setFont(QtGui.QFont('FontAwesome', 12))
         self.lightRadioButton.setText(OPEN_BUTTON)
@@ -198,7 +198,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def set_cortane_icon(self):
         self.cortana.setIcon(QtGui.QIcon(self.movie.currentPixmap()))
         self.littleCortana.setIcon(QtGui.QIcon(self.movie.currentPixmap()))
-
 
     @staticmethod
     def printout_data(data):
