@@ -18,15 +18,19 @@ class Ui_MainWindow(object):
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
         self.textEdit = QtWidgets.QLineEdit(self.centralwidget)
-        self.textEdit.setStyleSheet("color: rgb(255, 255, 255);")
+        self.textEdit.setStyleSheet("color: rgb(255, 255, 255);\n"
+"border-color: rgb(76, 76, 76);\n"
+"font: italic 9pt \"Microsoft YaHei UI\";\n"
+"background-color: rgb(27, 27, 27);\n"
+"border: 10px")
+        self.textEdit.setReadOnly(True)
         self.textEdit.setObjectName("textEdit")
         self.gridLayout.addWidget(self.textEdit, 3, 0, 1, 1)
         self.toolBox = QtWidgets.QToolBox(self.centralwidget)
-        self.toolBox.setStyleSheet("background-color: rgb(0, 0, 0);\n"
-"alternate-background-color: rgb(255, 130, 20);")
+        self.toolBox.setStyleSheet("background-color: rgb(0, 0, 0);")
         self.toolBox.setObjectName("toolBox")
         self.page = QtWidgets.QWidget()
-        self.page.setGeometry(QtCore.QRect(0, 0, 354, 490))
+        self.page.setGeometry(QtCore.QRect(0, 0, 354, 491))
         self.page.setStyleSheet("")
         self.page.setObjectName("page")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.page)
@@ -94,7 +98,8 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addItem(spacerItem1)
         self.feedBackBrowser = QtWidgets.QTextBrowser(self.page)
         self.feedBackBrowser.setMaximumSize(QtCore.QSize(16777215, 40))
-        self.feedBackBrowser.setStyleSheet("color: rgb(255, 255, 255);")
+        self.feedBackBrowser.setStyleSheet("color: rgb(255, 255, 255);\n"
+"border-color: rgb(188, 188, 188);")
         self.feedBackBrowser.setObjectName("feedBackBrowser")
         self.verticalLayout_4.addWidget(self.feedBackBrowser)
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -128,13 +133,15 @@ class Ui_MainWindow(object):
         self.gridLayout_2.addItem(spacerItem6, 1, 0, 1, 1)
         self.toolBox.addItem(self.page, "")
         self.widget = QtWidgets.QWidget()
-        self.widget.setGeometry(QtCore.QRect(0, 0, 354, 490))
+        self.widget.setGeometry(QtCore.QRect(0, 0, 354, 491))
         self.widget.setObjectName("widget")
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.widget)
         self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.webBrowser = QtWidgets.QTextBrowser(self.widget)
-        self.webBrowser.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.webBrowser.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"border: 3px\n"
+"")
         self.webBrowser.setObjectName("webBrowser")
         self.verticalLayout_5.addWidget(self.webBrowser)
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
@@ -159,7 +166,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.toolBox.setCurrentIndex(0)
+        self.toolBox.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

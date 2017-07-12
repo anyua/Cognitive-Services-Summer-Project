@@ -46,9 +46,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 绑定按钮
         self.cortana.clicked.connect(self.new_voice)
         self.littleCortana.clicked.connect(self.new_voice)
+
+        self.textEdit.setDisabled(True)
         # 情感分析
         self.emotion_list = list()
         self.result_once = 0
+
+        self.toolBox.setItemIcon(0, QtGui.QIcon(":img/speaking"))
 
     def new_voice(self):
         speech = Speech2TextService()
