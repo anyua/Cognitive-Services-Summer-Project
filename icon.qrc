@@ -1,5 +1,10 @@
 <RCC>
   <qresource prefix="img">
+    <file alias="waiting">gui/resources/image/waiting.gif</file>
+    <file alias="listening">gui/resources/image/listening.gif</file>
+    <file alias="thinking">gui/resources/image/thinking.gif</file>
+    <file alias="happy">gui/resources/image/happy.gif</file>
+    <file alias="sad">gui/resources/image/sad.gif</file>
     <file alias="speaking">gui/resources/image/image.gif</file>
   </qresource>
   <qresource prefix="font">

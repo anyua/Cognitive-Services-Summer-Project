@@ -27,11 +27,12 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # 添加动图
         self.movie = None
-        self.listening_gif = QtGui.QMovie(':img/speaking')
-        self.waiting_gif = QtGui.QMovie(':img/speaking')
-        self.thinking_gif = QtGui.QMovie(':img/speaking')
-        self.happy_gif = QtGui.QMovie(':img/speaking')
-        self.sad_gif = QtGui.QMovie(':img/speaking')
+        self.listening_gif = QtGui.QMovie(':img/listening')
+        self.waiting_gif = QtGui.QMovie(':img/waiting')
+        self.thinking_gif = QtGui.QMovie(':img/thinking')
+        self.happy_gif = QtGui.QMovie(':img/happy')
+        self.sad_gif = QtGui.QMovie(':img/sad')
+        self.cortana_is_waiting()
 
         # 绑定按钮
         self.cortana.clicked.connect(self.new_voice)
@@ -94,7 +95,9 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.emotion_api_timer.stop()
 
     def cortana_is_waiting(self):
-        pass
+        if self.movie:
+            self.movie.stop()
+        self.set_cortane_move(self.waiting_gif)
 
     def cortana_is_listening(self):
         if self.movie:
@@ -104,6 +107,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def cortana_is_thinking(self):
         if self.movie:
             self.movie.stop()
+        self.set_cortane_move(self.thinking_gif)
 
     def happy_cortane(self):
         pass
