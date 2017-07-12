@@ -204,7 +204,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def normal_result(self):
         if self.result_once > 0:
-            self.result_once -= 1
+            # self.result_once -= 1
             self.cortana_is_waiting()
 
     def sad_twice(self):
