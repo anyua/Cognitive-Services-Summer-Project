@@ -76,6 +76,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             search.trigger.connect(self.show_web_result)
             search.start()
             self.thread_list.append(search)
+            self.toolBox.setCurrentIndex(1)
         else:
             # 去处理图标
             if '灯' in cmd:
@@ -94,12 +95,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 elif cmd['门'] == '关':
                     self.doorRadioButton.setText(CLOSE_BUTTON)
         self.get_emotion()
-
-    def get_bing_web_search(self, text):
-        web_result = BingWebSearchService(text)
-        web_result.trigger.connect(self.show_web_result)
-        web_result.start()
-        self.thread_list.append(web_result)
 
     def show_web_result(self, web_list):
         for item in web_list:
@@ -127,24 +122,26 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.emotion_api_timer.stop()
 
     def analyze_emotion(self, emotions):
-        print(emotions)
-        min_emotion = -100
-        result_emotion = ''
-        for (k, v) in emotions.items():
-            if v > min_emotion:
-                min_emotion = v
-                result_emotion = k
-            print((k, v))
-        self.emotion_list.append(result_emotion)
-        if 'happiness' in self.emotion_list or \
-                'surprise' in self.emotion_list:
-            self.happy_result()
-        elif 'sadness' in self.emotion_list or \
-                'disgust' in self.emotion_list or \
-                'anger' in self.emotion_list:
-            self.sad_result()
-        elif 'neutral' in self.emotion_list:
-            self.normal_result()
+        if 'error' not in emotions:
+            min_emotion = -100
+            result_emotion = ''
+            for (k, v) in emotions.items():
+                if v > min_emotion:
+                    min_emotion = v
+                    result_emotion = k
+                print((k, v))
+            self.emotion_list.append(result_emotion)
+            if 'happiness' in self.emotion_list or \
+                    'surprise' in self.emotion_list:
+                self.happy_result()
+            elif 'sadness' in self.emotion_list or \
+                    'disgust' in self.emotion_list or \
+                    'anger' in self.emotion_list:
+                self.sad_result()
+            elif 'neutral' in self.emotion_list:
+                self.normal_result()
+        else:
+            print("分析失败，空的返回数据：" + str(emotions))
 
     def happy_result(self):
         if self.result_once > 0:
