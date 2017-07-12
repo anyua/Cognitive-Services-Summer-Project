@@ -14,7 +14,7 @@ class Camera(object):
     device = cv2.VideoCapture(CAMERA_NUM)
 
     def __init__(self):
-        self.device = None
+        # self.device = None
         self.frame = None
         self.ret = None
 

@@ -9,6 +9,7 @@ CLOSE_BUTTON = chr(0xf204)
 WHITE_QSS = "color: rgb(255, 255, 255);"
 GREY_QSS = "color: rgb(74, 74, 74);"
 
+
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def __init__(self):
@@ -61,11 +62,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 情感分析
         self.emotion_list = list()
         self.result_once = 0
+        self.emotion_effective_flag = False
         # 样式
         self.textEdit.setDisabled(True)
         self.toolBox.setStyleSheet("QToolBox::tab{border-top-style:solid;border-top-color:grey;border-top-width:1px;}")
 
     def new_voice(self):
+        self.emotion_effective_flag = False
         speech = Speech2TextService()
         speech.trigger.connect(self.analyze_text)
         speech.listening_complete.connect(self.cortana_is_thinking)
@@ -75,9 +78,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def analyze_text(self, text):
         if text.strip() == "":
-            print("语音转文字结果为空，不进行进一步分析")
+            print("语音转文字结果为空，不进行进一步分析,回到监听状态")
             self.textEdit.setText("没有识别到语音信号....")
-            self.get_emotion()  # debug
+            # self.get_emotion()  # debug
+            self.cortana_is_waiting()
             pass
         else:
             self.textEdit.setText(text)
@@ -137,6 +141,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.webBrowser.append("\n")
 
     def get_emotion(self):
+        self.emotion_effective_flag = True
         self.result_once = 1
         self.emotion_count = 5
         self.emotion_api_timer.start(3000)
@@ -152,6 +157,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.emotion_api_timer.stop()
 
     def analyze_emotion(self, emotions):
+        if not self.emotion_effective_flag:
+            return
         if 'error' not in emotions:
             min_emotion = -100
             result_emotion = ''
@@ -163,12 +170,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.emotion_list.append(result_emotion)
             if 'happiness' in self.emotion_list or \
                     'surprise' in self.emotion_list:
-                self.sad_result()
+                self.happy_result()
             elif 'sadness' in self.emotion_list or \
                     'disgust' in self.emotion_list or \
                     'anger' in self.emotion_list:
                 self.sad_result()
             elif 'neutral' in self.emotion_list:
+                self.normal_result()
+            else:
                 self.normal_result()
         else:
             print("分析失败，空的返回数据：" + str(emotions))
@@ -177,8 +186,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.result_once > 0:
             self.result_once -= 1
             self.happy_cortane()
-            self.feedBackBrowser.setText("对啦")
-            self.feedBackBrowser.setHtml("<center>对啦</center>")
+            self.feedBackBrowser.setHtml("<center>对啦！</center>")
             self.happy_flag = 300
             self.happy_gif.frameChanged.connect(self.happy_twice)
 
@@ -186,9 +194,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.result_once > 0:
             self.result_once -= 1
             self.sad_cortane()
-            self.feedBackBrowser.setText("听错了")
+            self.feedBackBrowser.setText("<center>对不起，听错啦</center>")
             self.sad_flag = 300
             self.sad_gif.frameChanged.connect(self.sad_twice)
+
+    def normal_result(self):
+        if self.result_once > 0:
+            self.result_once -= 1
+            self.cortana_is_waiting()
 
     def sad_twice(self):
         if self.sad_flag < 0:
@@ -201,11 +214,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.cortana_is_waiting()
         else:
             self.happy_flag -= 1
-
-    def normal_result(self):
-        if self.result_once > 0:
-            self.result_once -= 1
-            self.cortana_is_waiting()
 
     def cortana_is_waiting(self):
         if self.movie:
