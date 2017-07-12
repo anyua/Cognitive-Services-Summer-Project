@@ -106,9 +106,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             url = item.get('url')
             display_url = item.get('displayUrl')
             snippet = item.get('snippet')
-            self.webBrowser.append("<font color=blue>%s</font>"%title)
-            self.webBrowser.append("%s"%display_url)
+            self.webBrowser.append("<font color=DarkOliveGreen size = 3 >%s</font>"%title)
+            self.webBrowser.append("<a href=%s><font color=blue >%s</font></a>"%url%display_url)
             self.webBrowser.append("%s"%snippet)
+            self.webBrowser.append("\n")
 
     def get_emotion(self):
         self.result_once = 1

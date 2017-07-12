@@ -93,8 +93,8 @@ class SpeechAPI(object):
             self.access_token()
         self.api_headers['Authorization'] += self.token
         r = requests.post(self.api_url, headers=self.api_headers, data=self.read_in_block(filename))
-        # print(r.text)
-        # print(r.status_code)
+        print(r.text)
+        print(r.status_code)
         return json.loads(r.content.decode())
 
 
