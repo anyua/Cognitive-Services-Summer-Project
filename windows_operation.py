@@ -53,7 +53,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def new_voice(self):
         speech = Speech2TextService()
         speech.trigger.connect(self.analyze_text)
-        # speech.trigger.connect(self.analyze_cmd)
         speech.listening_complete.connect(self.cortana_is_thinking)
         speech.start()
         self.thread_list.append(speech)
@@ -103,7 +102,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.thread_list.append(web_result)
 
     def show_web_result(self, web_list):
-        self.webBrowser.setText(str(web_list[0]))
+        for item in web_list:
+            title = item.get('name')
+            url = item.get('url')
+            display_url = item.get('displayUrl')
+            snippet = item.get('snippet')
+            self.webBrowser.append("<font color=blue>%s</font>"%title)
+            self.webBrowser.append("%s"%display_url)
+            self.webBrowser.append("%s"%snippet)
 
     def get_emotion(self):
         self.result_once = 1
