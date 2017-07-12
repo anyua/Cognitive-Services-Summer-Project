@@ -6,6 +6,8 @@ from service import Speech2TextService, EmotionAnalyzeService, LanguageUnderstan
 
 OPEN_BUTTON = chr(0xf205)
 CLOSE_BUTTON = chr(0xf204)
+WHITE_QSS = "color: rgb(255, 255, 255);"
+GREY_QSS = "color: rgb(74, 74, 74);"
 
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
@@ -23,16 +25,23 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 设置字体
         self.lightLabel.setFont(QtGui.QFont('FontAwesome', 26))
         self.lightLabel.setText(chr(0xf0eb))
+        self.lightLabel.setStyleSheet("color: rgb(255, 255, 255);")
         self.doorLable.setFont(QtGui.QFont('FontAwesome', 25))
         self.doorLable.setText(chr(0xf13e))
+        self.doorLable.setStyleSheet("color: rgb(74, 74, 74);")
         self.airConditionerLable.setFont(QtGui.QFont('FontAwesome', 24))
         self.airConditionerLable.setText(chr(0xf2dc))
+        self.airConditionerLable.setStyleSheet("color: rgb(74, 74, 74);")
+
         self.lightRadioButton.setFont(QtGui.QFont('FontAwesome', 12))
         self.lightRadioButton.setText(OPEN_BUTTON)
+        self.lightRadioButton.setStyleSheet("color: rgb(255, 255, 255);")
         self.doorRadioButton.setFont(QtGui.QFont('FontAwesome', 12))
         self.doorRadioButton.setText(CLOSE_BUTTON)
+        self.doorRadioButton.setStyleSheet("color: rgb(74, 74, 74);")
         self.airConditionerRadioButton.setFont(QtGui.QFont('FontAwesome', 12))
         self.airConditionerRadioButton.setText(CLOSE_BUTTON)
+        self.airConditionerRadioButton.setStyleSheet("color: rgb(74, 74, 74);")
 
         # 添加动图
         self.movie = None
@@ -47,12 +56,13 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.cortana.clicked.connect(self.new_voice)
         self.littleCortana.clicked.connect(self.new_voice)
 
-        self.textEdit.setDisabled(True)
         # 情感分析
         self.emotion_list = list()
         self.result_once = 0
+        # 样式
+        self.textEdit.setDisabled(True)
 
-        self.toolBox.setItemIcon(0, QtGui.QIcon(":img/speaking"))
+        self.toolBox.setStyleSheet("QToolBox::tab{border-top-style:solid;border-top-color:grey;border-top-width:1px;}")
 
     def new_voice(self):
         speech = Speech2TextService()
@@ -86,18 +96,31 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             if '灯' in cmd:
                 if cmd['灯'] == '开':
                     self.lightRadioButton.setText(OPEN_BUTTON)
+                    self.lightRadioButton.setStyleSheet(WHITE_QSS)
+                    self.lightLabel.setStyleSheet(WHITE_QSS)
                 elif cmd['灯'] == '关':
                     self.lightRadioButton.setText(CLOSE_BUTTON)
+                    self.lightRadioButton.setStyleSheet(GREY_QSS)
+                    self.lightLabel.setStyleSheet(GREY_QSS)
             elif '空调' in cmd:
                 if cmd['空调'] == '开':
                     self.airConditionerRadioButton.setText(OPEN_BUTTON)
+                    self.airConditionerRadioButton.setStyleSheet(WHITE_QSS)
+                    self.airConditionerLable.setStyleSheet(WHITE_QSS)
                 elif cmd['空调'] == '关':
                     self.airConditionerRadioButton.setText(CLOSE_BUTTON)
+                    self.airConditionerRadioButton.setStyleSheet(GREY_QSS)
+                    self.airConditionerLable.setStyleSheet(GREY_QSS)
             elif '门' in cmd:
                 if cmd['门'] == '开':
                     self.doorRadioButton.setText(OPEN_BUTTON)
+                    self.doorRadioButton.setStyleSheet(WHITE_QSS)
+                    self.doorLable.setStyleSheet(WHITE_QSS)
                 elif cmd['门'] == '关':
                     self.doorRadioButton.setText(CLOSE_BUTTON)
+                    self.doorRadioButton.setStyleSheet(GREY_QSS)
+                    self.doorLable.setStyleSheet(GREY_QSS)
+        self.doorRadioButton.setStyleSheet(GREY_QSS)
         self.get_emotion()
 
     def show_web_result(self, web_list):
