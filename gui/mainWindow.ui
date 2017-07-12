@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>啦啦啦</string>
+   <string>La La Cortana</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../icon.qrc">
