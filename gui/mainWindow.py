@@ -100,9 +100,9 @@ class Ui_MainWindow(object):
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout_4.addItem(spacerItem1)
         self.feedBackBrowser = QtWidgets.QTextBrowser(self.page)
-        self.feedBackBrowser.setMaximumSize(QtCore.QSize(16777215, 40))
+        self.feedBackBrowser.setMaximumSize(QtCore.QSize(16777215, 45))
         self.feedBackBrowser.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 25 9pt \"等线 Light\";\n"
+"font: 12pt \"等线\";\n"
 "border-color: rgb(188, 188, 188);")
         self.feedBackBrowser.setObjectName("feedBackBrowser")
         self.verticalLayout_4.addWidget(self.feedBackBrowser)
@@ -143,7 +143,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.webBrowser = QtWidgets.QTextBrowser(self.widget)
-        self.webBrowser.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.webBrowser.setStyleSheet("background-color: rgb(0, 0, 0);\n"
 "border: 3px;")
         self.webBrowser.setObjectName("webBrowser")
         self.verticalLayout_5.addWidget(self.webBrowser)
@@ -164,6 +164,26 @@ class Ui_MainWindow(object):
         self.horizontalLayout_5.setStretch(1, 1)
         self.horizontalLayout_5.setStretch(2, 1)
         self.verticalLayout_5.addLayout(self.horizontalLayout_5)
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        spacerItem9 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem9)
+        self.littleFeedBackBrowser = QtWidgets.QTextBrowser(self.widget)
+        self.littleFeedBackBrowser.setMaximumSize(QtCore.QSize(16777215, 36))
+        self.littleFeedBackBrowser.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 9pt \"等线\";\n"
+"border-color: rgb(188, 188, 188);")
+        self.littleFeedBackBrowser.setObjectName("littleFeedBackBrowser")
+        self.horizontalLayout_3.addWidget(self.littleFeedBackBrowser)
+        spacerItem10 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem10)
+        self.horizontalLayout_3.setStretch(0, 1)
+        self.horizontalLayout_3.setStretch(1, 3)
+        self.horizontalLayout_3.setStretch(2, 1)
+        self.verticalLayout_5.addLayout(self.horizontalLayout_3)
+        self.verticalLayout_5.setStretch(0, 10)
+        self.verticalLayout_5.setStretch(1, 2)
+        self.verticalLayout_5.setStretch(2, 1)
         self.toolBox.addItem(self.widget, "")
         self.gridLayout.addWidget(self.toolBox, 2, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -184,7 +204,12 @@ class Ui_MainWindow(object):
         self.feedBackBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'等线 Light\'; font-size:9pt; font-weight:24; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'SimSun\'; font-weight:400;\"><br /></p></body></html>"))
+"</style></head><body style=\" font-family:\'等线\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.littleFeedBackBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'等线\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
 
 import icon_rc

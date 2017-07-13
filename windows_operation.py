@@ -66,7 +66,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         # 样式
         self.textEdit.setDisabled(True)
         self.toolBox.setStyleSheet("QToolBox::tab{border-top-style:solid;border-top-color:grey;border-top-width:1px;}")
-        self.feedBackBrowser.setStyleSheet("border:none")
+        #self.feedBackBrowser.setStyleSheet("border:none")
 
     def new_voice(self):
         self.textEdit.setText(". . . . . .")
@@ -100,6 +100,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             search.start()
             self.thread_list.append(search)
             self.toolBox.setCurrentIndex(1)
+            self.feedBackBrowser.setHtml("<center>在互联网上搜索到了一些内容<\center>")
+            self.littleFeedBackBrowser.setHtml("<center>在互联网上搜索到了一些内容<\center>")
         else:
             # 去处理图标
             self.toolBox.setCurrentIndex(0)
@@ -108,48 +110,60 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                     self.lightRadioButton.setText(OPEN_BUTTON)
                     self.lightRadioButton.setStyleSheet(WHITE_QSS)
                     self.lightLabel.setStyleSheet(WHITE_QSS)
+                    self.feedBackBrowser.setHtml("<center>把灯打开了！<\center>")
+                    self.littleFeedBackBrowser.setHtml("<center>把灯打开了！<\center>")
                 elif cmd['灯'] == '关':
                     self.lightRadioButton.setText(CLOSE_BUTTON)
                     self.lightRadioButton.setStyleSheet(GREY_QSS)
                     self.lightLabel.setStyleSheet(GREY_QSS)
+                    self.feedBackBrowser.setHtml("<center>把灯关上了！<\center>")
+                    self.littleFeedBackBrowser.setHtml("<center>把灯关上了！<\center>")
             elif '空调' in cmd:
                 if cmd['空调'] == '开':
                     self.airConditionerRadioButton.setText(OPEN_BUTTON)
                     self.airConditionerRadioButton.setStyleSheet(WHITE_QSS)
                     self.airConditionerLable.setStyleSheet(WHITE_QSS)
+                    self.feedBackBrowser.setHtml("<center>把空调打开了！<\center>")
+                    self.feedBackBrowser.setHtml("<center>把空调打开了！<\center>")
                 elif cmd['空调'] == '关':
                     self.airConditionerRadioButton.setText(CLOSE_BUTTON)
                     self.airConditionerRadioButton.setStyleSheet(GREY_QSS)
                     self.airConditionerLable.setStyleSheet(GREY_QSS)
+                    self.feedBackBrowser.setHtml("<center>把空调关上了！<\center>")
+                    self.littleFeedBackBrowser.setHtml("<center>把空调关上了！<\center>")
             elif '门' in cmd:
                 if cmd['门'] == '开':
                     self.doorRadioButton.setText(OPEN_BUTTON)
                     self.doorRadioButton.setStyleSheet(WHITE_QSS)
                     self.doorLable.setStyleSheet(WHITE_QSS)
+                    self.feedBackBrowser.setHtml("<center>把门打开了！<\center>")
+                    self.littleFeedBackBrowser.setHtml("<center>把门打开了！<\center>")
                 elif cmd['门'] == '关':
                     self.doorRadioButton.setText(CLOSE_BUTTON)
                     self.doorRadioButton.setStyleSheet(GREY_QSS)
                     self.doorLable.setStyleSheet(GREY_QSS)
-        self.doorRadioButton.setStyleSheet(GREY_QSS)
+                    self.feedBackBrowser.setHtml("<center>把门关上了！<\center>")
+                    self.littleFeedBackBrowser.setHtml("<center>把门关上了！<\center>")
         self.get_emotion()
 
     def show_web_result(self, web_list):
+        self.webBrowser.setText('')
         for item in web_list:
             title = item.get('name')
             url = item.get('url')
             display_url = item.get('displayUrl')
             snippet = item.get('snippet')
-            self.webBrowser.append("<b><font color=DarkOliveGreen size = 3 >%s</font></b>"%title)
-            self.webBrowser.append("<a href=%s><font color=blue >%s</font></a>"%(url,display_url))
-            self.webBrowser.append("%s"%snippet)
+            self.webBrowser.append("<b><font color=white size = 3 >%s</font></b>" % title)
+            self.webBrowser.append("<a href=%s><font color=blue >%s</font></a>" % (url, display_url))
+            self.webBrowser.append("<font color=white >%s</font>" % snippet)
             self.webBrowser.append("\n")
         self.webBrowser.moveCursor(QtGui.QTextCursor.Start)
 
     def get_emotion(self):
         self.emotion_effective_flag = True
         self.result_once = 1
-        self.emotion_count = 5
-        self.emotion_api_timer.start(3000)
+        self.emotion_count = 8
+        self.emotion_api_timer.start(1000)
 
     def get_emotion_once(self):
         if self.emotion_count >= 0:
@@ -167,18 +181,20 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if 'error' not in emotions:
             min_emotion = -100
             result_emotion = ''
-            print(emotions)
+            # print(emotions)
             for (k, v) in emotions.items():
                 if v > min_emotion:
                     min_emotion = v
                     result_emotion = k
+            print("EMOTIONS:"+str(result_emotion))
             self.emotion_list.append(result_emotion)
             if 'happiness' in self.emotion_list or \
                     'surprise' in self.emotion_list:
                 self.happy_result()
             elif 'sadness' in self.emotion_list or \
                     'disgust' in self.emotion_list or \
-                    'anger' in self.emotion_list:
+                    'anger' in self.emotion_list or \
+                    'contempt' in self.emotion_list:
                 self.sad_result()
             elif 'neutral' in self.emotion_list:
                 self.normal_result()
@@ -191,16 +207,14 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if self.result_once > 0:
             self.result_once -= 1
             self.happy_cortane()
-            self.feedBackBrowser.setHtml("<center>对啦！</center>")
-            self.happy_flag = 800
+            self.happy_flag = 500
             self.happy_gif.frameChanged.connect(self.happy_twice)
 
     def sad_result(self):
-        if self.result_once > 0:
-            self.result_once -= 1
+        if self.result_once >=  0:
+            self.result_once -= 2
             self.sad_cortane()
-            self.feedBackBrowser.setText("<center>对不起，听错啦</center>")
-            self.sad_flag = 800
+            self.sad_flag = 432
             self.sad_gif.frameChanged.connect(self.sad_twice)
 
     def normal_result(self):
@@ -210,6 +224,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
     def sad_twice(self):
         if self.sad_flag < 0:
+            # self.sad_gif.stop()
+            self.sad_gif.frameChanged.disconnect(self.sad_twice)
             self.cortana.click()
         else:
             self.sad_flag -= 1
@@ -217,30 +233,41 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def happy_twice(self):
         if self.happy_flag < 0:
             self.cortana_is_waiting()
+            # self.happy_gif.frameChanged.disconnect(self.happy_gif)
         else:
             self.happy_flag -= 1
 
     def cortana_is_waiting(self):
+        self.feedBackBrowser.setHtml("<center>等待发出指令<\center>")
+        self.littleFeedBackBrowser.setHtml("<center>等待发出指令<\center>")
         if self.movie:
             self.movie.stop()
         self.set_cortane_move(self.waiting_gif)
 
     def cortana_is_listening(self):
+        self.feedBackBrowser.setHtml("<center>正在倾听<\center>")
+        self.littleFeedBackBrowser.setHtml("<center>正在倾听<\center>")
         if self.movie:
             self.movie.stop()
         self.set_cortane_move(self.listening_gif)
 
     def cortana_is_thinking(self):
+        self.feedBackBrowser.setHtml("<center>正在思考<\center>")
+        self.littleFeedBackBrowser.setHtml("<center>正在思考<\center>")
         if self.movie:
             self.movie.stop()
         self.set_cortane_move(self.thinking_gif)
 
     def happy_cortane(self):
+        self.feedBackBrowser.setHtml("<center>好开心猜对啦！</center>")
+        self.littleFeedBackBrowser.setHtml("<center>好开心猜对啦！</center>")
         if self.movie:
             self.movie.stop()
         self.set_cortane_move(self.happy_gif)
 
     def sad_cortane(self):
+        self.feedBackBrowser.setHtml("<center>哎呦，又猜错了...<b>再说一遍吧...</center>")
+        self.littleFeedBackBrowser.setHtml("<center>哎呦，又猜错了...<b>再说一遍吧...</center>")
         if self.movie:
             self.movie.stop()
         self.set_cortane_move(self.sad_gif)

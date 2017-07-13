@@ -26,9 +26,10 @@ class EmotionAPI(object):
         self.data = None
         self.emotion = {}
 
-    def get_response(self):
+    def get_response(self, thread_id):
         try:
             self.body = self.camera.get_jpg()
+            # self.camera.get_and_save_frame(thread_id)
             # NOTE: You must use the same region in your REST call as you used to obtain your subscription keys.
             #   For example, if you obtained your subscription keys from westcentralus, replace "westus" in the
             #   URL below with "westcentralus".
@@ -46,8 +47,8 @@ class EmotionAPI(object):
             print(e)
             return None
 
-    def get_emotions(self):
-        if self.get_response():
+    def get_emotions(self, thread_id):
+        if self.get_response(thread_id):
             self.emotion = self.data[0]["scores"]
             return self.emotion
         else:
@@ -165,7 +166,7 @@ class BingWebSearchAPI(object):
         data = response.read()
         # print(data)
         code_data = json.loads(data)
-        print('搜索结果原始数据: '+str(code_data))
+        #print('搜索结果原始数据: '+str(code_data))
         self.list = code_data.get('webPages').get('value')
         # print(self.list)
         conn.close()

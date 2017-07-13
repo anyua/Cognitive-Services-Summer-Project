@@ -39,7 +39,7 @@ class EmotionAnalyzeService(QtCore.QThread):
         self.api = EmotionAPI()
 
     def run(self):
-        data = self.api.get_emotions()
+        data = self.api.get_emotions(self.currentThreadId())
         if data:
             self.trigger.emit(data)
         else:

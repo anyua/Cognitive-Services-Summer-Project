@@ -31,8 +31,8 @@ class Camera(object):
         cv2.waitKey(0)
 
     def get_jpg(self):
-        self.open_img()  # 实际应该修改为 get_frame()
-        # self.get_frame()
+        # self.open_img()  # 实际应该修改为 get_frame()
+        self.get_frame()
         encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 90]
         result, img_encode = cv2.imencode('.jpg', self.frame, encode_param)
         data = numpy.array(img_encode).tobytes()
@@ -42,10 +42,12 @@ class Camera(object):
         self.frame = cv2.imread(r"C:\Users\anyua\Desktop\emotion-5-thumbnail.jpg")
 
     def get_and_save_frame(self, thread_id):
-        self.mutex.acquire()
-        ret, frame = self.device.read()
-        self.mutex.release()
-        cv2.imwrite("temp/" + str(thread_id) + ".jpg", frame)
+        # self.mutex.acquire()
+        # ret, frame = self.device.read()
+        # self.mutex.release()
+        filename = "C:\\Users\\DYN\\Desktop\\lalala\\Cognitive-Services-Summer-Project\\temp\\" + str(int(thread_id)) + ".jpg"
+        print(filename)
+        cv2.imwrite(filename, self.frame)
 
 
 class Microphone(object):
