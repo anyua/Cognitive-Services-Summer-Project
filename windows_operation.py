@@ -71,6 +71,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def new_voice(self):
         self.textEdit.setText(". . . . . .")
         self.emotion_effective_flag = False
+        self.result_once = 0
         speech = Speech2TextService()
         speech.trigger.connect(self.analyze_text)
         speech.listening_complete.connect(self.cortana_is_thinking)
@@ -166,11 +167,11 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         if 'error' not in emotions:
             min_emotion = -100
             result_emotion = ''
+            print(emotions)
             for (k, v) in emotions.items():
                 if v > min_emotion:
                     min_emotion = v
                     result_emotion = k
-                print((k, v))
             self.emotion_list.append(result_emotion)
             if 'happiness' in self.emotion_list or \
                     'surprise' in self.emotion_list:
@@ -191,7 +192,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.result_once -= 1
             self.happy_cortane()
             self.feedBackBrowser.setHtml("<center>对啦！</center>")
-            self.happy_flag = 300
+            self.happy_flag = 800
             self.happy_gif.frameChanged.connect(self.happy_twice)
 
     def sad_result(self):
@@ -199,7 +200,7 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             self.result_once -= 1
             self.sad_cortane()
             self.feedBackBrowser.setText("<center>对不起，听错啦</center>")
-            self.sad_flag = 300
+            self.sad_flag = 800
             self.sad_gif.frameChanged.connect(self.sad_twice)
 
     def normal_result(self):
@@ -256,6 +257,3 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     @staticmethod
     def printout_data(data):
         print(data)
-
-
-
